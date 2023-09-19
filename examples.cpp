@@ -1,39 +1,31 @@
 #include <iostream>
 
-class Parent {public: virtual ~Parent(){};};
-class Child1: public Parent{};
-class Child2: public Parent{};
+class testCast 
+{
 
+	public :
+		testCast(const float v) : _v(v)
+		{
+		} 
 
-class Unrelated {};
+		float getV(){return this->_v;}
+
+		operator float() {return this->_v;}
+		operator int() {return static_cast<int>(this->_v);}
+
+	private :
+		const float _v;
+};
 
 int main()
 {
+	testCast testCast1(420.234001f);
 
-	Child1 a;
-	Parent *b = &a;
+	int a = testCast1;
+	float b = testCast1;
 
-	Child1 *c = dynamic_cast<Child1 *>(b);
-
-	if (c == NULL)
-	{
-		std::cout << "Tous va bien" << std::endl;
-	}
-	else
-	{
-		std::cout << "Marche pas" << std::endl;
-	}
-
-	try
-	{
-		Child2 & d = dynamic_cast<Child2 &>(*b);
-		std::cout << "Conversion works" << std::endl;
-	}
-	catch (std::bad_cast &bc)
-	{
-		std::cout << bc.what() << std::endl;
-		return 0;
-	}
+	std::cout << a << std::endl;
+	std::cout << b << std::endl;
 
 	return 0;
 }
