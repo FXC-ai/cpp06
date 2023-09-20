@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 
 class ScalarConverter
@@ -112,7 +113,17 @@ int main()
 	ScalarConverter SCobjInf(chain5);
 	std::cout << SCobjInf.isInf() << std::endl;
 
-	//std::cout << static_cast<int>(chain2.c_str()) << std::endl;
+
+	double test = std::numeric_limits<double>::min();
+
+	std::cout << std::to_string(test) << std::endl;
+
+
+	float test1 = std::numeric_limits<float>::min();
+
+	std::cout << test1 << std::endl;
+
+
 
 	return (0);
 }
