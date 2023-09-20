@@ -1,31 +1,28 @@
 #include <iostream>
 
-class testCast 
+class A{};
+class B{};
+
+class C
 {
-
 	public :
-		testCast(const float v) : _v(v)
-		{
-		} 
-
-		float getV(){return this->_v;}
-
-		operator float() {return this->_v;}
-		operator int() {return static_cast<int>(this->_v);}
-
-	private :
-		const float _v;
+		C(A const &_){}
+		explicit C(B const &_){}
 };
+
+void f(C const &_)
+{
+	std::cout << "OK" << std::endl;
+	return;
+}
+
 
 int main()
 {
-	testCast testCast1(420.234001f);
 
-	int a = testCast1;
-	float b = testCast1;
+	f( A() );
+	f( B() );
 
-	std::cout << a << std::endl;
-	std::cout << b << std::endl;
 
 	return 0;
 }
