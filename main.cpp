@@ -17,6 +17,8 @@ class ScalarConverter
 		ScalarConverter& operator=(ScalarConverter &rhs);
 
 	public:
+		static int _type;
+
 		static bool		isChar(std::string chain);
 		static bool		isInt(std::string chain);
 		static bool		isFloat(std::string chain);
@@ -40,6 +42,8 @@ class ScalarConverter
 		static void		display_nan();
 };
 
+int ScalarConverter::_type = 0;
+
 ScalarConverter::ScalarConverter(){};
 
 ScalarConverter::~ScalarConverter(){};
@@ -56,7 +60,12 @@ ScalarConverter & ScalarConverter::operator=(ScalarConverter &rhs)
 
 bool ScalarConverter::isChar(std::string chain)
 {
-	return (chain.length() == 1 && std::isprint(chain[0]) == 1 && std::isdigit(chain[0]) == 0);
+	if (chain.length() == 1 && std::isprint(chain[0]) == 1 && std::isdigit(chain[0]) == 0)
+	{
+		ScalarConverter::_type = CHAR;
+		return true;
+	}
+	return false;
 }
 
 char ScalarConverter::convertToChar(std::string chain)
@@ -66,22 +75,42 @@ char ScalarConverter::convertToChar(std::string chain)
 
 bool ScalarConverter::isInt(std::string chain)
 {
-	return (chain.length() >= 1 && chain.find_first_not_of("-0123456789") == std::string::npos);
+	if(chain.length() >= 1 && chain.find_first_not_of("-0123456789") == std::string::npos)
+	{
+		ScalarConverter::_type = INT;
+		return true;
+	}
+	return false;
 }
 
 bool ScalarConverter::isDouble(std::string chain)
 {
-	return (chain.find('.') != std::string::npos && chain.find('f') == std::string::npos);
+	if(chain.find('.') != std::string::npos && chain.find('f') == std::string::npos)
+	{
+		ScalarConverter::_type = DOUBLE;
+		return true;
+	}
+	return false;
 }
 
 bool ScalarConverter::isFloat(std::string chain)
 {
-	return (chain.find('.') != std::string::npos && chain.find('f') != std::string::npos);
+	if(chain.find('.') != std::string::npos && chain.find('f') != std::string::npos)
+	{
+		ScalarConverter::_type = FLOAT;
+		return true;
+	}
+	return false;
 }
 
 bool ScalarConverter::isNan(std::string chain)
 {
-	return ((chain.compare("nan") == 0) || (chain.compare("nanf") == 0));
+	if((chain.compare("nan") == 0) || (chain.compare("nanf") == 0))
+	{
+		ScalarConverter::_type = UNKNOWN;
+		return true;
+	}
+	return false;
 }
 
 bool ScalarConverter::isInf(std::string chain)
@@ -139,19 +168,25 @@ void ScalarConverter::display_int(long l)
 void ScalarConverter::display_float(float f)
 {
 	std::cout << "float: ";
-	std::cout << f;
+	std::cout << std::to_string(f);
 
-	if ((f - static_cast<int>(f)) == 0)
-	{
-		std::cout << ".0";
-	}
+	// if ((ScalarConverter::_type == INT || ScalarConverter::_type == CHAR) && f <= 999999)
+	// {
+	// 	std::cout << ".0";
+	// }
 	std::cout << "f" << std::endl;
 }
 
 void ScalarConverter::display_double(double d)
 {
 	std::cout << "double: ";
-	std::cout << d << std::endl;
+
+	std::cout << std::to_string(d) ;
+	// if ((ScalarConverter::_type == INT || ScalarConverter::_type == CHAR) && d <= 999999)
+	// {
+	// 	std::cout << ".0";
+	// }
+	std::cout << std::endl;
 }
 
 void ScalarConverter::display_inf(std::string chain)
@@ -233,6 +268,7 @@ int main(int argc, char** argv)
 
 	ScalarConverter::convert(arg);
 
+	// std::cout << ScalarConverter::_type << std::endl;
 
 	std::cout << std::endl;
 	//2147483647
