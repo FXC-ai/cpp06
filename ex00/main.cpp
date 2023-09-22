@@ -4,11 +4,8 @@
 #include "ScalarConverter.hpp"
 
 
-
-
 int main(int argc, char** argv)
 {
-
 	if (argc != 2)
 	{
 		std::cerr << "Error : Invalid args" << std::endl;
@@ -20,11 +17,7 @@ int main(int argc, char** argv)
 
 	ScalarConverter::convert(arg);
 
-	// std::cout << ScalarConverter::_type << std::endl;
-
 	std::cout << std::endl;
-	//2147483647
-	//–2147483648
 
 	return (0);
 }

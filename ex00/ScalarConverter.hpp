@@ -2,6 +2,8 @@
 #define SCALAR_CONVERTER_HPP
 
 #include <iostream>
+#include <iomanip>
+#include <cmath>
 
 #define CHAR 1
 #define INT 2
@@ -27,13 +29,10 @@ class ScalarConverter
 		static bool		isNan(std::string chain);
 		static bool		isInf(std::string chain);
 
-		static double	convertToDouble(std::string chain);
-		static float	convertToFloat(std::string chain);
 		static char		convertToChar(std::string chain);
 		static long		convertToLong(std::string chain);
-
-		static void 	convert(std::string);
-		static void 	display(char c, long i, float f, double d);
+		static float	convertToFloat(std::string chain);
+		static double	convertToDouble(std::string chain);
 
 		static void		display_char(char c);
 		static void		display_int(long l);
@@ -41,6 +40,9 @@ class ScalarConverter
 		static void		display_double(double d);
 		static void		display_inf(std::string chain);
 		static void		display_nan();
+
+		static void 	display(char c, long i, float f, double d);
+		static void 	convert(std::string);
 };
 
 #endif
