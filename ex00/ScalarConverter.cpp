@@ -1,47 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include <string>
-
-#define CHAR 1
-#define INT 2
-#define FLOAT 3
-#define DOUBLE 4
-#define UNKNOWN 5
-
-
-class ScalarConverter
-{
-	private :
-		ScalarConverter();
-		ScalarConverter(ScalarConverter & src);
-		~ScalarConverter();
-		ScalarConverter& operator=(ScalarConverter &rhs);
-
-	public:
-		static int _type;
-
-		static bool		isChar(std::string chain);
-		static bool		isInt(std::string chain);
-		static bool		isFloat(std::string chain);
-		static bool		isDouble(std::string chain);
-		static bool		isNan(std::string chain);
-		static bool		isInf(std::string chain);
-
-		static double	convertToDouble(std::string chain);
-		static float	convertToFloat(std::string chain);
-		static char		convertToChar(std::string chain);
-		static long		convertToLong(std::string chain);
-
-		static void 	convert(std::string);
-		static void 	display(char c, long i, float f, double d);
-
-		static void		display_char(char c);
-		static void		display_int(long l);
-		static void		display_float(float l);
-		static void		display_double(double d);
-		static void		display_inf(std::string chain);
-		static void		display_nan();
-};
+#include "ScalarConverter.hpp"
 
 int ScalarConverter::_type = 0;
 
@@ -255,28 +212,4 @@ void ScalarConverter::convert(std::string chain)
 	{
 		ScalarConverter::display_nan();
 	}
-}
-
-
-int main(int argc, char** argv)
-{
-
-	if (argc != 2)
-	{
-		std::cerr << "Error : Invalid args" << std::endl;
-		return (1);
-	}
-	std::string arg(argv[1]);
-
-	std::cout << "Argument = " << arg << std::endl;
-
-	ScalarConverter::convert(arg);
-
-	// std::cout << ScalarConverter::_type << std::endl;
-
-	std::cout << std::endl;
-	//2147483647
-	//–2147483648
-
-	return (0);
 }
