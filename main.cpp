@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 #define CHAR 1
@@ -168,12 +169,15 @@ void ScalarConverter::display_int(long l)
 void ScalarConverter::display_float(float f)
 {
 	std::cout << "float: ";
-	std::cout << std::to_string(f);
 
-	// if ((ScalarConverter::_type == INT || ScalarConverter::_type == CHAR) && f <= 999999)
-	// {
-	// 	std::cout << ".0";
-	// }
+	if ((ScalarConverter::_type == INT || ScalarConverter::_type == CHAR) && f <= 999999)
+	{
+		std::cout.precision(1);
+		std::cout << std::fixed;
+		//std::cout << ".0";
+	}
+
+	std::cout << f;
 	std::cout << "f" << std::endl;
 }
 
@@ -181,11 +185,11 @@ void ScalarConverter::display_double(double d)
 {
 	std::cout << "double: ";
 
-	std::cout << std::to_string(d) ;
-	// if ((ScalarConverter::_type == INT || ScalarConverter::_type == CHAR) && d <= 999999)
-	// {
-	// 	std::cout << ".0";
-	// }
+	std::cout << d;
+	if ((ScalarConverter::_type == INT || ScalarConverter::_type == CHAR) && d <= 999999)
+	{
+		std::cout << ".0";
+	}
 	std::cout << std::endl;
 }
 
