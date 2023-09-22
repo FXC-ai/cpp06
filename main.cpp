@@ -12,18 +12,15 @@ class ScalarConverter
 {
 	private :
 		ScalarConverter();
-	// 	static std::string _chain;
-	// 	static std::string _type;
-
-
+		ScalarConverter(ScalarConverter & src);
+		~ScalarConverter();
+		ScalarConverter& operator=(ScalarConverter &rhs);
 
 	public:
-		//ScalarConverter(const std::string chain);
-		//std::string getChain(std::string chain);
 		static bool		isChar(std::string chain);
-		static bool		isDouble(std::string chain);
 		static bool		isInt(std::string chain);
 		static bool		isFloat(std::string chain);
+		static bool		isDouble(std::string chain);
 		static bool		isNan(std::string chain);
 		static bool		isInf(std::string chain);
 
@@ -31,7 +28,6 @@ class ScalarConverter
 		static float	convertToFloat(std::string chain);
 		static char		convertToChar(std::string chain);
 		static long		convertToLong(std::string chain);
-
 
 		static void 	convert(std::string);
 		static void 	display(char c, long i, float f, double d);
@@ -42,13 +38,21 @@ class ScalarConverter
 		static void		display_double(double d);
 		static void		display_inf(std::string chain);
 		static void		display_nan();
-		
-
-
 };
 
-
 ScalarConverter::ScalarConverter(){};
+
+ScalarConverter::~ScalarConverter(){};
+
+ScalarConverter::ScalarConverter(ScalarConverter &src)
+{
+	(void) src;
+};
+
+ScalarConverter & ScalarConverter::operator=(ScalarConverter &rhs)
+{
+	return rhs;
+};
 
 bool ScalarConverter::isChar(std::string chain)
 {
@@ -109,10 +113,10 @@ void ScalarConverter::display_char(char c)
 	{
 		std::cout << "char: '" << c << "'" << std::endl;
 	}
-	else if (c < 0)
-	{
-		std::cout << "char: Non displayable" << std::endl;
-	}
+	// else if (c < 0)
+	// {
+	// 	std::cout << "char: Non displayable" << std::endl;
+	// }
 	else
 	{
 		std::cout << "char: Non displayable" << std::endl;
@@ -135,7 +139,13 @@ void ScalarConverter::display_int(long l)
 void ScalarConverter::display_float(float f)
 {
 	std::cout << "float: ";
-	std::cout << f << "f" << std::endl;
+	std::cout << f;
+
+	if ((f - static_cast<int>(f)) == 0)
+	{
+		std::cout << ".0";
+	}
+	std::cout << "f" << std::endl;
 }
 
 void ScalarConverter::display_double(double d)
@@ -182,14 +192,11 @@ void ScalarConverter::convert(std::string chain)
 		if (i > 127 && static_cast<char>(i) <= 127)
 		{
 			display(-1, i, static_cast<float>(i), static_cast<double>(i));
-
 		}
 		else
 		{
 			display(static_cast<char>(i), i, static_cast<float>(i), static_cast<double>(i));
 		}
-
-
 	}
 	else if (ScalarConverter::isFloat(chain))
 	{
