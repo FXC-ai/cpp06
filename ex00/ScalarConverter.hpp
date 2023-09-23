@@ -34,14 +34,17 @@ class ScalarConverter
 		static float	convertToFloat(std::string chain);
 		static double	convertToDouble(std::string chain);
 
-		static void		display_char(char c);
-		static void		display_int(long l);
-		static void		display_float(float l);
-		static void		display_double(double d);
+
 		static void		display_inf(std::string chain);
 		static void		display_nan();
 
-		static void 	display(char c, long i, float f, double d);
+
+
+		static void		display_from_char (char c, int i, float f ,double d);
+		static void		display_from_int (char c, long i, float f ,double d);
+		static void		display_from_floatDouble (char c, int i, float f ,double d);
+
+
 		static void 	convert(std::string);
 };
 
